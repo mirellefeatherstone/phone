@@ -1,0 +1,168 @@
+:root {
+    --bg-img: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop');
+    --icon-size: 60px;
+    --gap: 38px;
+    --label-h: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+    background: #1a1a1a; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    overflow: hidden;
+}
+
+.phone-screen {
+    width: 430px;
+    height: 932px;
+    background: #fff var(--bg-img) center/cover;
+    position: relative;
+    border-radius: 50px;
+    box-shadow: 0 0 0 10px #333;
+}
+
+.status-bar { height: 63px; }
+
+/* 布局网格 */
+.home-grid {
+    padding: 0 var(--gap);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+}
+
+/* 顶部大卡片 */
+.main-card {
+    width: 354px; /* 60*4 + 38*3 */
+    height: 158px; /* 60*2 + 38 */
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(15px);
+    border-radius: 28px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.tag-black {
+    position: absolute; top: 10px; left: 10px;
+    background: #000; color: #fff; font-size: 9px;
+    padding: 2px 6px; border-radius: 4px; z-index: 5;
+}
+
+.side-id {
+    position: absolute; left: 10px; bottom: 15px;
+    writing-mode: vertical-lr; transform: rotate(180deg);
+    font-size: 8px; color: #444; letter-spacing: 1px;
+}
+
+.card-center {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 40px;
+}
+
+.text-ring-box {
+    position: absolute;
+    width: 100px; height: 100px;
+    left: 60px;
+    animation: rotateRing 20s linear infinite;
+}
+
+@keyframes rotateRing {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.ring-text { font-size: 11px; fill: #222; font-family: serif; letter-spacing: 1.5px; }
+
+.avatar-circle {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #fff;
+    cursor: pointer;
+    z-index: 2;
+    margin-left: 35px;
+}
+.avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+.info-group { margin-left: 20px; z-index: 2; }
+.info-group h1 { font-size: 20px; font-weight: 600; color: #000; }
+.info-group p { font-size: 10px; color: #333; margin-top: 4px; }
+
+/* 第二行布局 */
+.widget-row {
+    display: grid;
+    grid-template-columns: 158px 158px;
+    gap: var(--gap);
+}
+
+.clock-widget {
+    width: 158px; height: 158px;
+    background: #fff; border-radius: 28px;
+    position: relative;
+}
+
+.mini-app-grid {
+    display: grid;
+    grid-template-columns: 60px 60px;
+    grid-template-rows: 60px 60px;
+    column-gap: var(--gap);
+    row-gap: var(--gap);
+}
+
+/* APP 单元 */
+.app-unit {
+    width: var(--icon-size);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.app-icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+}
+.app-icon img { width: 100%; height: 100%; object-fit: cover; }
+
+.app-label {
+    position: absolute;
+    bottom: calc(-1 * (var(--label-h) + 5px)); /* 占用 38px 间距中的前 14px */
+    width: 80px; text-align: center;
+    font-size: 11px; color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    height: var(--label-h);
+}
+
+/* 指针 */
+.hand { position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; border-radius: 4px; }
+.hour { width: 4px; height: 35px; background: #000; z-index: 3; }
+.min { width: 3px; height: 55px; background: #333; z-index: 2; }
+.sec { width: 1.5px; height: 65px; background: #ff3b30; z-index: 4; }
+.clock-dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; background: #000; border-radius: 50%; z-index: 5; }
+
+/* Dock */
+.dock-area {
+    position: absolute;
+    bottom: 25px;
+    left: 0;  
+    width: 100%;
+    padding: 0 20px;
+}
+.dock-blur {
+    height: 96px;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(20px);
+    border-radius: 35px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}

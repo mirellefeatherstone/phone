@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI OS Main Screen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="phone-screen">
+        <!-- 顶栏 -->
+        <div class="status-bar"></div>
+
+        <!-- 主网格布局 -->
+        <div class="home-grid">
+            
+            <!-- 顶部大卡片 -->
+            <div class="main-card">
+                <div class="tag-black" contenteditable="true">AI MODEL</div>
+                <div class="side-id" contenteditable="true">ID-0042</div>
+                
+                <div class="card-center">
+                    <!-- 旋转文字环 -->
+                    <div class="text-ring-box">
+                        <svg viewBox="0 0 200 200">
+                            <path id="ringPath" d="M 100, 100 m -75, 0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0" fill="transparent"/>
+                            <text>
+                                <textPath xlink:href="#ringPath" class="ring-text">
+                                    L’ART DE VIVRE • COUTURE • DIGITAL PERSONA •
+                                </textPath>
+                            </text>
+                        </svg>
+                    </div>
+                    <!-- 头像 -->
+                    <div class="avatar-circle" onclick="document.getElementById('avatarUploader').click()">
+                        <img id="avatarImg" src="https://via.placeholder.com/100" alt="Avatar">
+                        <input type="file" id="avatarUploader" hidden onchange="changeAvatar(event)">
+                    </div>
+                    <!-- 文字信息 -->
+                    <div class="info-group">
+                        <h1 contenteditable="true">VIVRE</h1>
+                        <p contenteditable="true">Digital Soul Protocol v1.0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 组件行：时钟 + 4个APP -->
+            <div class="widget-row">
+                <!-- 实时转动时钟 -->
+                <div class="clock-widget">
+                    <div class="hand hour" id="hourHand"></div>
+                    <div class="hand min" id="minHand"></div>
+                    <div class="hand sec" id="secHand"></div>
+                    <div class="clock-dot"></div>
+                </div>
+
+                <!-- 右侧 4 个 APP (这里加上了 id) -->
+                <div class="mini-app-grid">
+                    
+                                <!-- 右侧 4 个 APP (这里加上了 id) -->
+                                <div class="mini-app-grid">
+                                    <!-- 右侧 4 个 APP 里的第一个 -->
+                                    <div class="app-unit" id="app1">
+                                        <a href="pages/chat/index.html" style="text-decoration: none; display: block;">
+                                            <div class="app-icon"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png"></div>
+                                         </a>
+                                         <div class="app-label">Photos</div>
+                                    </div>
+                                    <div class="app-unit" id="app2">
+                                        <div class="app-icon"><img src="https://cdn-icons-png.flaticon.com/512/300/300221.png"></div>
+                                        <div class="app-label">Google</div>
+                                    </div>
+                                    <div class="app-unit" id="app3">
+                                        <div class="app-icon"><img src="https://cdn-icons-png.flaticon.com/512/174/174883.png"></div>
+                                        <div class="app-label">YouTube</div>
+                                    </div>
+                                    <div class="app-unit" id="app4">
+                                        <div class="app-icon"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968841.png"></div>
+                                        <div class="app-label">Maps</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+        <!-- 程序坞 (Dock) (这里加上了 id) -->
+        <div class="dock-area">
+            <div class="dock-blur">
+                <div class="app-unit" id="dock1">
+                    <div class="app-icon"><img src="https://cdn-icons-png.flaticon.com/512/174/174848.png"></div>
+                </div>
+                <div class="app-unit" id="dock2">
+                    <div class="app-icon"><img src="https://cdn-icons-png.flaticon.com/512/174/174855.png"></div>
+                </div>
+                <!-- 美化 APP -->
+                <div class="app-unit" id="dock3">
+                    <a href="pages/beautify.html" style="text-decoration: none; display: block;">
+                        <div class="app-icon">
+                            <img src="https://cdn-icons-png.flaticon.com/512/174/174872.png"> 
+                        </div>
+                    </a>
+                </div>
+                <!-- 设置 API 的 APP -->
+                <div class="app-unit" id="dock4">
+                    <a href="pages/settings-api.html" style="text-decoration: none; display: block;">
+                        <div class="app-icon setting-icon">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
