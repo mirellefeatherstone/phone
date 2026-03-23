@@ -97,3 +97,18 @@ function applyCustomizations() {
 
 // 页面加载完毕后，自动执行美化函数
 document.addEventListener('DOMContentLoaded', applyCustomizations);
+// --- 核心魔法：阻止 iOS 主屏幕 App 点击链接时跳回浏览器 ---
+if (("standalone" in window.navigator) && window.navigator.standalone) {
+    document.addEventListener('click', function(event) {
+        let target = event.target;
+        // 一直往上找，看看点击的是不是 <a> 标签
+        while (target && target.tagName !== 'A') {
+            target = target.parentNode;
+        }
+        // 如果是 <a> 标签，拦截它！用 JavaScript 强制在当前页面跳转
+        if (target && target.tagName === 'A' && target.href) {
+            event.preventDefault();
+            window.location.href = target.href;
+        }
+    }, false);
+}
