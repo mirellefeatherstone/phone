@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Chat Settings</title>
+    <link rel="stylesheet" href="chat-settings.css">
+</head>
+<body>
+    <div class="phone-page">
+        <!-- 1. 顶栏 (固定) -->
+        <header class="top-nav">
+            <a href="chat-room.html" class="back-btn">〈 </a>
+            <h1>聊天设置</h1>
+            <div class="placeholder"></div>
+        </header>
+
+        <!-- 中间可滚动区域 -->
+        <main class="scroll-area">
+            <!-- 2. 头像区域 -->
+                        <!-- 2. 头像区域 (角色头像) -->
+            <div class="profile-header">
+                <!-- 点击头像触发上传 -->
+                <img src="https://via.placeholder.com/100" id="settingAvatar" class="main-avatar" onclick="document.getElementById('roleAvatarUpload').click()" style="cursor: pointer;">
+                <input type="file" id="roleAvatarUpload" hidden accept="image/*" onchange="uploadAvatar(event, 'role')">
+                <h2 id="settingName">角色名字</h2>
+                <span style="font-size: 11px; color: #8e8e93; margin-top: 4px;">点击更换角色头像</span>
+            </div>
+
+            <!-- 3. Tab切换栏 -->
+            <div class="tab-bar">
+                <div class="tab-btn active" onclick="switchTab('tab-setting', this)">设定</div>
+                <div class="tab-btn" onclick="switchTab('tab-func', this)">功能</div>
+                <div class="tab-btn" onclick="switchTab('tab-theme', this)">美化</div>
+                <div class="tab-btn" onclick="switchTab('tab-ext', this)">拓展</div>
+            </div>
+
+            <!-- 4. Tab内容区域 -->
+            <div class="tab-content-container">
+                
+                <!-- 【设定】Tab (默认显示) -->
+                <div id="tab-setting" class="tab-pane active">
+                    <!-- 第一组：角色基础 -->
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <span>角色真名</span>
+                            <input type="text" id="roleRealName" placeholder="未设置" class="right-input">
+                        </div>
+                        <div class="setting-item">
+                            <span>备注名</span>
+                            <input type="text" id="roleAlias" placeholder="未设置" class="right-input">
+                        </div>
+                        <div class="setting-item vertical">
+                            <span>角色人设</span>
+                            <textarea id="rolePersona" placeholder="详细描述角色的性格、背景、说话方式…"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- 第二组：表情包 -->
+                    <div class="setting-card">
+                        <div class="setting-item vertical">
+                            <span>可用表情包</span>
+                            <div class="tag-list">
+                                <span class="tag">默认 Emoji</span>
+                                <span class="tag">动态小熊</span>
+                                <span class="tag add-tag">＋</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第三组：世界书 -->
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <span>关联世界书</span>
+                            <button class="small-btn">设置</button>
+                        </div>
+                    </div>
+
+                    <!-- 第四组：我的设定 -->
+                    <div class="setting-card">
+                        <div class="setting-item" onclick="document.getElementById('myAvatarUpload').click()" style="cursor: pointer;">
+                            <span>我的头像</span>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <img src="https://via.placeholder.com/50" id="myAvatar" class="small-avatar">
+                                <span style="color: #c7c7cc; font-size: 14px;">〉</span>
+                            </div>
+                            <input type="file" id="myAvatarUpload" hidden accept="image/*" onchange="uploadAvatar(event, 'my')">
+                        </div>
+
+                        <div class="setting-item">
+                            <span>我的名字</span>
+                            <input type="text" id="myName" placeholder="你的名字" class="right-input">
+                        </div>
+                        <div class="setting-item vertical">
+                            <span>我的人设</span>
+                            <textarea id="myPersona" placeholder="描述你的形象，让角色更好地认知你…"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- 第五组：人设预设 -->
+                    <div class="setting-card">
+                        <div class="setting-item vertical">
+                            <div class="preset-header">
+                                <span>人设预设</span>
+                                <select id="presetSelect" class="preset-select">
+                                    <option value="default">当前预设</option>
+                                </select>
+                            </div>
+                            <div class="preset-actions">
+                                <button class="small-btn outline">应用</button>
+                                <button class="small-btn outline">另存为</button>
+                                <button class="small-btn outline">管理</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                                <!-- 【功能】Tab -->
+                <div id="tab-func" class="tab-pane">
+                    
+                    <!-- 第一组：记忆相关 -->
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <span>最大记忆轮数</span>
+                            <input type="number" value="100" class="num-input">
+                        </div>
+                        <div class="setting-item">
+                            <span>与所在群聊记忆互通</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>双语聊天模式</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>翻译显示样式</span>
+                            <select class="preset-select">
+                                <option value="outside">气泡外（默认）</option>
+                                <option value="inside">气泡内</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <span>自定义回复条数</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>表情包智能匹配</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>自动生成日记总结</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                    </div>
+
+                    <!-- 第二组：角色行为 -->
+                    <div class="setting-card">
+                        <div class="setting-item vertical">
+                            <div class="horizontal-between">
+                                <span>角色自主收藏</span>
+                                <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                            </div>
+                            <div class="setting-desc">开启后，该角色可自主收藏认为重要的消息，可在「收藏」→「角色收藏」中查看</div>
+                        </div>
+                        <div class="setting-item">
+                            <span>启用真实相册匹配</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>启用商城互动</span>
+                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>允许角色赠送亲属卡</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>允许角色管理提醒事项</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>允许角色主动发起通话</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                    </div>
+
+                    <!-- 第三组：通话相关 -->
+                    <div class="setting-card">
+                        <div class="setting-item vertical">
+                            <div class="horizontal-between">
+                                <span>视频通话真实摄像头</span>
+                                <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                            </div>
+                            <div class="setting-desc">开启后，视频通话时会在右上角显示你的真实摄像头画面，角色可以通过API识别你的画面内容。</div>
+                        </div>
+                        <div class="setting-item vertical">
+                            <div class="horizontal-between">
+                                <span>视频通话NovelAI生图</span>
+                                <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                            </div>
+                            <div class="setting-desc">开启后，视频通话中角色每轮回复会生成NovelAI图片作为通话画面背景，需先在API设置中配置NovelAI。</div>
+                        </div>
+                        <div class="setting-item vertical">
+                            <div class="horizontal-between">
+                                <span>通话中断时保存记录</span>
+                                <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                            </div>
+                            <div class="setting-desc">开启后，通话因闪退、退台或等待正常挂断而中断时，仍会保存通话记录并生成总结。</div>
+                        </div>
+                    </div>
+
+                    <!-- 第四组：小剧场与记忆 -->
+                    <div class="setting-card">
+                        <div class="setting-item vertical">
+                            <div class="horizontal-between">
+                                <span>角色主动生成小剧场</span>
+                                <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                            </div>
+                            <div class="setting-desc">开启后，角色会基于人设和聊天内容主动创作小剧场，存储在小剧场App中。</div>
+                        </div>
+                        <div class="setting-item">
+                            <span>记忆存档</span>
+                            <button class="small-btn outline">管理存档</button>
+                        </div>
+                    </div>
+
+                    <!-- 第五组：快捷操作 -->
+                    <div class="setting-card">
+                        <div class="setting-item clickable">
+                            <span class="action-text">回顶（当前已加载）</span>
+                        </div>
+                        <div class="setting-item clickable">
+                            <span class="action-text">回顶（全部）</span>
+                        </div>
+                        <div class="setting-item clickable">
+                            <span class="action-text">聊天回底</span>
+                        </div>
+                    </div>
+
+                    <!-- 第六组：状态与后台 -->
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <span>启用角色状态栏</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>启用角色正则过滤</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>后台自动发送消息</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>无操作检测时间 (分钟)</span>
+                            <input type="number" value="60" class="num-input">
+                        </div>
+                        <div class="setting-item">
+                            <span>免打扰时段</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>后台消息弹窗通知</span>
+                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                    </div>
+
+                    <!-- 第七组：危险操作 -->
+                    <div class="setting-card">
+                        <div class="setting-item clickable" onclick="alert('确定要拉黑该角色吗？')">
+                            <span class="danger-text">拉黑角色</span>
+                        </div>
+                        <div class="setting-item">
+                            <span>角色可以拉黑用户</span>
+                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span class="danger-text">允许角色查看并操控你的手机</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                    </div>
+
+                    <!-- 第八组：数据管理 -->
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <span>聊天记录</span>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="small-btn outline">导出</button>
+                                <button class="small-btn outline">导入</button>
+                            </div>
+                        </div>
+                        <div class="setting-item clickable" onclick="alert('警告：此操作不可逆！确认清空？')">
+                            <span class="danger-text">清空聊天记录</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                                <!-- 【美化】Tab -->
+                <div id="tab-theme" class="tab-pane">
+                    
+                    <!-- 第一组：背景与主题 -->
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <span>聊天背景</span>
+                            <div class="right-links">
+                                <span class="text-link">点击更换</span>
+                                <span class="text-link danger">恢复默认</span>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <span>主题颜色</span>
+                            <select class="preset-select">
+                                <option value="white">白</option>
+                                <option value="pink">粉</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <span>头像显示模式</span>
+                            <select class="preset-select">
+                                <option value="all">全部显示</option>
+                                <option value="target">仅对方</option>
+                                <option value="none">隐藏</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <span>顶部标题布局</span>
+                            <select class="preset-select">
+                                <option value="left">居左（默认）</option>
+                                <option value="center">居中</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 第二组：时间戳 -->
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <span>显示时间戳</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>时间戳位置</span>
+                            <select class="preset-select">
+                                <option value="follow">跟随气泡</option>
+                                <option value="fixed">固定底部</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <span>时间戳格式</span>
+                            <select class="preset-select">
+                                <option value="hm">时:分</option>
+                                <option value="hms">时:分:秒</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 第三组：显示选项 -->
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <span>顶部显示在线状态</span>
+                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>聊天内显示状态更新消息</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>聊天内显示提醒事项消息</span>
+                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>聊天内显示头像操作消息</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                    </div>
+
+                    <!-- 第四组：气泡样式 -->
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <span>气泡磨砂效果</span>
+                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item vertical">
+                            <div class="horizontal-between">
+                                <span>头像圆角</span>
+                                <span id="avatarRadiusVal" class="value-display">50%</span>
+                            </div>
+                            <input type="range" id="avatarRadius" min="0" max="50" value="50" class="ios-slider">
+                        </div>
+                    </div>
+
+                    <!-- 第五组：自定义气泡（重点） -->
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <span>自定义气泡样式</span>
+                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        
+                        <!-- 展开的自定义面板 -->
+                        <div class="custom-bubble-panel">
+                            <!-- 预览区 -->
+                            <div class="bubble-preview-area">
+                                <div class="preview-row ai">
+                                    <div class="preview-bubble ai-bub">这是对方气泡。</div>
+                                </div>
+                                <div class="preview-row user">
+                                    <div class="preview-bubble user-bub">这是我方气泡。</div>
+                                </div>
+                            </div>
+                            <!-- 代码输入框 -->
+                            <textarea class="css-input" placeholder="CSS代码..."></textarea>
+                            <!-- 操作按钮区 -->
+                            <div class="action-row" style="margin-top: 5px;">
+                                <button class="small-btn outline">导入文档</button>
+                                <select class="preset-select border-select">
+                                    <option>— 选择预设 —</option>
+                                    <option>黑夜降临</option>
+                                    <option>樱花果冻</option>
+                                </select>
+                            </div>
+                            <div class="action-row">
+                                <button class="small-btn outline">应用</button>
+                                <button class="small-btn outline">存</button>
+                                <button class="small-btn outline">管</button>
+                                <button class="small-btn outline danger-border">重置</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第六组：权限 -->
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <span>允许角色在对话中自主更换聊天主题</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                    </div>
+
+                </div>
+
+                                               <!-- 【拓展】Tab -->
+                <div id="tab-ext" class="tab-pane">
+                    
+                    <!-- 直接用白色卡片平铺，删掉折叠头部 -->
+                    <div class="setting-card">
+                        
+                        <!-- 开关列表 -->
+                        <div class="setting-item">
+                            <span>启用头像识别系统</span>
+                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>角色感知头像变化</span>
+                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>角色可自主更换头像</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>角色可收藏用户图片为头像</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>角色可自主收藏情头</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                        <div class="setting-item">
+                            <span>角色感知当前情头状态</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+
+                        <!-- 选项 -->
+                        <div class="setting-item">
+                            <span>头像识别字数</span>
+                            <span class="text-link" onclick="alert('即将弹出字数选择弹窗')">详细（不限）</span>
+                        </div>
+
+                        <!-- 管理按钮组 -->
+                        <div class="setting-item">
+                            <span>用户头像库</span>
+                            <button class="small-btn outline">管理</button>
+                        </div>
+                        <div class="setting-item">
+                            <span>角色头像库</span>
+                            <button class="small-btn outline">管理</button>
+                        </div>
+                        <div class="setting-item">
+                            <span>情头库</span>
+                            <button class="small-btn outline">管理</button>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </main>
+
+        <!-- 5. 底部保存按钮 (固定) -->
+        <div class="bottom-action-bar">
+            <button class="save-all-btn" onclick="saveAllSettings()">保存所有更改</button>
+        </div>
+    </div>
+
+    <script src="chat-settings.js"></script>
+    
+    <!-- 防 iOS 跳转魔法代码 -->
+    <script>
+        if (("standalone" in window.navigator) && window.navigator.standalone) {
+            document.addEventListener('click', function(event) {
+                let target = event.target;
+                while (target && target.tagName !== 'A') { target = target.parentNode; }
+                if (target && target.tagName === 'A' && target.href) {
+                    event.preventDefault(); window.location.href = target.href;
+                }
+            }, false);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="stylesheet" href="chat.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <div class="phone-page">
+        
+        <!-- 视图 1：聊天列表 (Chats) -->
+        <section id="view-chats" class="tab-view active">
+            <!-- 去掉了 Chats 标题 -->
+            <header class="top-nav" style="align-items: center; border-bottom: none;">
+                <a href="../../index.html" class="back-home">〈 </a>
+                <div class="nav-icons" style="display: flex; gap: 15px;">
+                    <span>🔍</span><span>➕</span><span>⚙️</span>
+                </div>
+            </header>
+
+            <!-- 引入你的图床：Instagram 顶部 Notes/Stories 区域 -->
+            <div class="ig-notes-row">
+                <div class="ig-note-item">
+                    <div class="note-avatar-wrapper">
+                        <img src="https://img.heliar.top/file/1773019145417_19b3218ea71d215a75641600428e583b.jpg" class="note-avatar">
+                        <div class="note-bubble">Note...</div>
+                    </div>
+                    <span class="note-name">Your note</span>
+                </div>
+                <div class="ig-note-item">
+                    <div class="note-avatar-wrapper">
+                        <img src="https://via.placeholder.com/100" class="note-avatar">
+                    </div>
+                    <span class="note-name">Alice</span>
+                </div>
+            </div>
+
+            <div class="filter-bar">
+                <div class="filter-chip active">Messages</div>
+                <div class="filter-chip">Requests</div>
+            </div>
+            
+            <div class="chat-list" id="chatListContainer">
+                <!-- JS 动态生成聊天列表 -->
+            </div>
+        </section>
+
+        <!-- 视图 2：好友列表 (Friends) -->
+        <section id="view-friends" class="tab-view">
+            <header class="top-nav center-title">
+                <div class="placeholder"></div> <!-- 占位符把右侧图标挤过去 -->
+                <h1>Friends</h1>
+                <div class="nav-icons" style="display: flex; gap: 15px;">
+                    <span>🔍</span><span>➕</span>
+                </div>
+            </header>
+            <div class="my-profile-row">
+                <img src="https://via.placeholder.com/50" id="myMiniAvatar" class="avatar">
+                <span id="myMiniName" class="name">米莉</span>
+            </div>
+            <div class="divider"></div>
+            <div class="section-title">好友 <span id="friendCount">0</span></div>
+            <div class="friend-list" id="friendListContainer">
+                <!-- JS 动态生成好友列表 -->
+            </div>
+        </section>
+
+        <!-- 视图 3：个人主页 (Menu) -->
+        <section id="view-menu" class="tab-view">
+            <header class="top-nav center-title ig-nav">
+                <div class="placeholder"></div>
+                <div class="nav-icons"><span>≡</span></div>
+            </header>
+            
+            <div class="ig-profile-header">
+                <!-- 头像和名字放在了左侧同一个组合里 -->
+                <div class="profile-left-group">
+                    <div class="ig-avatar-box">
+                        <img src="" id="igAvatar" class="ig-avatar">
+                        <div class="ig-add-btn">+</div>
+                    </div>
+                    <span class="ig-username-side" id="igUsernameSide">vivre_</span>
+                </div>
+
+                <div class="ig-stats">
+                    <div class="stat-box">
+                        <span class="stat-num" id="igPosts">0</span>
+                        <span class="stat-label">posts</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-num" id="igFollowers">14</span>
+                        <span class="stat-label">followers</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-num" id="igFollowing">14</span>
+                        <span class="stat-label">following</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ig-bio">
+                <span class="ig-play">⊙</span>
+                <span class="ig-decor">‧₊˚ ✟ ‧₊˚ ♡ ‧₊˚ ✟ ‧₊˚ ♡ ‧₊˚</span>
+                <span class="ig-bio-text" id="igBioText">a love like war</span>
+            </div>
+
+            <div class="ig-actions">
+                <button class="ig-btn" onclick="openEditProfile()">Edit profile</button>
+                <button class="ig-btn">Share profile</button>
+                <button class="ig-btn icon-only">👤+</button>
+            </div>
+
+            <div class="ig-highlights" id="igHighlightsContainer">
+                <!-- JS 动态生成精选 -->
+            </div>
+        </section>
+
+        <!-- 底部 Tab 栏 -->
+        <nav class="bottom-tab-bar">
+            <div class="tab-item" onclick="switchTab('view-friends', this)">
+                <div class="tab-icon">👤</div><span>Friends</span>
+            </div>
+            <div class="tab-item active" onclick="switchTab('view-chats', this)">
+                <div class="tab-icon">💬</div><span>Chats</span>
+            </div>
+            <div class="tab-item">
+                <div class="tab-icon">📞</div><span>Calls</span>
+            </div>
+            <div class="tab-item" onclick="switchTab('view-menu', this)">
+                <div class="tab-icon">•••</div><span>More</span>
+            </div>
+        </nav>
+
+        <!-- 编辑资料面板 -->
+        <div id="editProfilePanel" class="slide-panel">
+            <div class="panel-header">
+                <button onclick="closeEditProfile()" class="text-btn">Cancel</button>
+                <h3>Edit Profile</h3>
+                <button onclick="saveProfile()" class="text-btn blue">Done</button>
+            </div>
+            <div class="panel-content">
+                <div class="edit-avatar-section">
+                    <img src="" id="editAvatarPreview" onclick="document.getElementById('avatarUpload').click()">
+                    <input type="file" id="avatarUpload" hidden accept="image/*" onchange="previewAvatar(event)">
+                    <span class="edit-text">Change photo</span>
+                </div>
+                <div class="edit-form">
+                    <label>Username</label><input type="text" id="editName">
+                    <label>Bio (Text)</label><input type="text" id="editBio">
+                    <label>Posts</label><input type="number" id="editPosts">
+                    <label>Followers</label><input type="number" id="editFollowers">
+                    <label>Following</label><input type="number" id="editFollowing">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="chat.js"></script>
+</body>
+</html>

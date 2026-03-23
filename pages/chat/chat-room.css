@@ -1,0 +1,146 @@
+:root {
+    /* 主题颜色变量 */
+    --bg-main: #f7f7f7;
+    --bg-input: #ffffff;
+    --bubble-user: #000000;
+    --text-user: #ffffff;
+    --bubble-ai: #ffffff;
+    --text-ai: #000000;
+    --gray-text: #999999;
+    --border-color: #e5e5ea;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+*:focus { outline: none; }
+
+body { background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+
+.chat-room-page {
+    width: 430px; height: 932px;
+    background: var(--bg-main);
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+}
+
+/* 1. 顶栏 */
+.chat-header {
+    height: 90px; /* 包含刘海屏的顶部空间 */
+    padding: 40px 15px 10px;
+    background: var(--bg-main);
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 0.5px solid var(--border-color);
+    position: sticky; top: 0; z-index: 10;
+}
+.back-btn { color: #007aff; text-decoration: none; font-size: 16px; display: flex; align-items: center; width: 70px; }
+.icon-back { font-size: 20px; margin-right: 4px; font-weight: 500; }
+.header-center { display: flex; flex-direction: column; align-items: center; flex: 1; }
+.header-center h2 { font-size: 16px; font-weight: 600; color: #000; }
+.status-text { font-size: 11px; color: var(--gray-text); margin-top: 2px; }
+.header-right { width: 70px; display: flex; justify-content: flex-end; }
+.header-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 1px solid #eee; }
+
+/* 2. 消息区域 */
+.message-area {
+    flex: 1;
+    padding: 15px;
+    
+    /* 👇 就是这里：强制开启滚动，配合 touch 实现全局橡皮筋效果 */
+    overflow-y: scroll; 
+    -webkit-overflow-scrolling: touch; 
+    
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px;
+}
+
+/* 时间分割线 */
+.date-divider {
+    text-align: center; margin: 15px 0 5px;
+}
+.date-divider span {
+    font-size: 11px; color: var(--gray-text); font-weight: 500;
+}
+
+/* 消息气泡通用 */
+.msg-row { display: flex; width: 100%; margin-bottom: 5px; }
+.bubble {
+    max-width: 75%;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 15px; line-height: 1.4;
+    position: relative; display: flex; flex-direction: column;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.msg-content { word-wrap: break-word; }
+
+
+
+/* AI 消息 (左侧白色) */
+.msg-row.ai { justify-content: flex-start; }
+.msg-row.ai .bubble {
+    background: var(--bubble-ai); color: var(--text-ai);
+    border-bottom-left-radius: 4px; /* 聊天气泡小尾巴感 */
+}
+
+
+/* 用户消息 (右侧黑色) */
+.msg-row.user { justify-content: flex-end; }
+.msg-row.user .bubble {
+    background: var(--bubble-user); color: var(--text-user);
+    border-bottom-right-radius: 4px;
+}
+
+
+/* 3. 底部输入栏 */
+.chat-input-bar {
+    background: var(--bg-input);
+    padding: 10px 15px 25px; /* 底部预留 iOS 小黑条空间 */
+    display: flex; align-items: flex-end; gap: 10px;
+    border-top: 0.5px solid var(--border-color);
+}
+.icon-btn {
+    background: none; border: none; font-size: 24px; color: #555;
+    padding: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+/* 修改后的代码：往下挪一点 */
+.plus-btn { 
+    font-size: 28px; 
+    font-weight: 300; 
+    transform: translateY(3px); /* 👈 改这个数字：数字越大越往下 */
+}
+.input-wrapper {
+    flex: 1; background: var(--bg-main); border-radius: 20px;
+    padding: 8px 15px; border: 1px solid var(--border-color);
+    display: flex; align-items: center; min-height: 38px;
+}
+.input-wrapper input {
+    width: 100%; border: none; background: transparent;
+    font-size: 15px; color: #000;
+}
+.input-wrapper input::placeholder { color: var(--gray-text); }
+/* 动态魔法按钮样式 (✨和⬆️) */
+.action-btn { 
+    font-size: 24px; 
+    color: #007aff; /* 标志性的 iOS 蓝色 */
+    transition: transform 0.2s, color 0.2s; 
+}
+.action-btn:active { 
+    transform: scale(0.8); /* 按下时有弹性的缩放动画 */
+}
+
+/* 真实手机全屏适配 */
+/* 呼叫 AI 的专属按钮样式 */
+
+@media screen and (max-width: 600px) {
+    .chat-room-page {
+        width: 100vw !important; height: 100vh !important;
+        border-radius: 0 !important; box-shadow: none !important;
+    }
+}
+/* 系统报错消息 */
+.msg-row.error .bubble {
+    background: #ffeeed;
+    color: #ff3b30;
+    border: 1px solid #ffc1c0;
+    font-size: 13px;
+}

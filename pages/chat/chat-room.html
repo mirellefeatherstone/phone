@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Chat Room</title>
+    <link rel="stylesheet" href="chat-room.css">
+</head>
+<body>
+    <div class="phone-page chat-room-page">
+        
+        <!-- 1. 顶栏 -->
+        <header class="chat-header">
+            <a href="index.html" class="back-btn">
+                <span class="icon-back">〈</span> 消息
+            </a>
+            <div class="header-center">
+                <h2 id="chatName">VIVRE</h2>
+                <span class="status-text">刚刚</span>
+            </div>
+            <div class="header-right">
+                <a href="chat-settings.html" style="text-decoration: none;">
+                    <img src="https://via.placeholder.com/100" id="chatAvatar" alt="Avatar" class="header-avatar">
+                </a>
+            </div>
+        </header>
+
+        <!-- 2. 消息滚动区 -->
+        <main class="message-area" id="messageArea">
+            <!-- JS 将在这里动态插入消息 -->
+        </main>
+
+                <!-- 3. 底部输入栏 -->
+                <!-- 3. 底部输入栏 -->
+        <div class="chat-input-bar">
+            <!-- 左侧：加号 -->
+            <button class="icon-btn plus-btn">＋</button>
+            
+            <!-- 中间：文字输入 -->
+            <div class="input-wrapper">
+                <input type="text" id="msgInput" placeholder="输入訊息">
+            </div>
+            
+            <!-- 右侧：表情按钮 + 动态魔法按钮 (✨/⬆️) -->
+            <button class="icon-btn emoji-btn">😀</button>
+            <button class="icon-btn action-btn" id="actionBtn">✨</button>
+        </div>
+    </div>
+
+    <script src="chat-room.js"></script>
+    
+    <!-- 防 iOS 跳转魔法代码 -->
+    <script>
+        if (("standalone" in window.navigator) && window.navigator.standalone) {
+            document.addEventListener('click', function(event) {
+                let target = event.target;
+                while (target && target.tagName !== 'A') { target = target.parentNode; }
+                if (target && target.tagName === 'A' && target.href) {
+                    event.preventDefault();
+                    window.location.href = target.href;
+                }
+            }, false);
+        }
+    </script>
+</body>
+</html>
