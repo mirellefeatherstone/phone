@@ -1,0 +1,120 @@
+:root {
+    --ios-bg: #f2f2f7;
+    --ios-item-bg: #ffffff;
+    --ios-blue: #007aff;
+    --ios-text: #000000;
+    --ios-subtext: #8e8e93;
+    --border-color: #c6c6c8;
+    --danger: #ff3b30;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
+*:focus { outline: none; }
+
+body { background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
+
+.phone-page { width: 430px; height: 932px; background: var(--ios-bg); overflow-y: auto; position: relative; }
+
+/* 顶栏 */
+.nav-bar {
+    position: sticky; top: 0; height: 100px; padding-top: 50px;
+    background: rgba(255,255,255,0.85); backdrop-filter: blur(20px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding-inline: 20px; z-index: 100; border-bottom: 0.5px solid var(--border-color);
+}
+.back-btn { color: var(--ios-blue); text-decoration: none; font-size: 20px; font-weight: 500; }
+.nav-title { font-size: 17px; font-weight: 600; }
+.placeholder { width: 30px; }
+
+/* 列表与折叠面板 */
+.settings-list { padding: 20px 16px; padding-bottom: 50px; }
+
+.accordion-group {
+    background: var(--ios-item-bg);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.accordion-header {
+    padding: 16px; display: flex; justify-content: space-between; align-items: center;
+    font-size: 16px; font-weight: 500; cursor: pointer;
+    border-bottom: 0.5px solid transparent; transition: background 0.2s;
+}
+.accordion-header:active { background: #f9f9f9; }
+.accordion-header.active { border-bottom-color: #e5e5e5; }
+.chevron { font-size: 20px; color: var(--border-color); transition: transform 0.3s ease; }
+.accordion-header.active .chevron { transform: rotate(90deg); }
+
+/* 折叠内容区域 */
+.accordion-content {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.content-inner { padding: 16px; display: flex; flex-direction: column; gap: 16px; }
+
+/* 内部基础样式 */
+.helper-text { font-size: 12px; color: var(--ios-subtext); line-height: 1.4; }
+.group-title { font-size: 13px; color: var(--ios-subtext); margin-top: 10px; }
+
+.setting-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.setting-row.vertical { flex-direction: column; align-items: flex-start; gap: 10px; }
+.horizontal-between { display: flex; justify-content: space-between; width: 100%; }
+.label { font-size: 15px; color: var(--ios-text); }
+.value-display { color: var(--ios-blue); font-size: 15px; }
+
+/* 动态列表 App 行 */
+.app-edit-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; border-bottom: 0.5px solid #f0f0f0;
+}
+.app-edit-row:last-child { border-bottom: none; }
+.app-thumb { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; background: #eee; }
+.app-info { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.app-info input { width: 100%; border: none; background: #f5f5f5; padding: 6px 8px; border-radius: 6px; font-size: 12px; }
+.app-name-static { font-size: 14px; font-weight: 500; }
+
+/* 控件样式 */
+.text-btn { background: none; border: none; color: var(--ios-blue); font-size: 14px; cursor: pointer; }
+.text-btn.danger { color: var(--danger); }
+.full-btn { width: 100%; padding: 12px; background: var(--ios-blue); color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; }
+.input-with-btn { display: flex; gap: 10px; width: 100%; }
+.input-with-btn input[type="text"] { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 6px; }
+
+select { padding: 8px; border: none; background: #f5f5f5; border-radius: 6px; font-size: 14px; }
+input[type="range"] { width: 100%; }
+
+/* 网格按钮 (导入导出) */
+.action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.grid-btn { padding: 10px; border: none; background: #f0f0f0; border-radius: 8px; color: var(--ios-blue); cursor: pointer; }
+.grid-btn.danger { color: var(--danger); background: #ffeeed; }
+
+/* CSS 文本域 */
+textarea { width: 100%; height: 120px; padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #fafafa; font-family: monospace; font-size: 12px; resize: none; }
+.css-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+
+/* 代码片段卡片 */
+.css-snippet-card { background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 10px; }
+.snippet-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; font-weight: 500; }
+.copy-btn { background: #e0e0e0; border: none; padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer; }
+pre { background: #2d2d2d; color: #ccc; padding: 8px; border-radius: 6px; font-size: 11px; overflow-x: auto; }
+/* --- 真实手机设备的完美全屏适配 --- */
+@media screen and (max-width: 600px) {
+    body {
+        background: #fff; /* 去掉电脑上的黑色背景 */
+    }
+    .phone-screen {
+        width: 100vw !important; /* 宽度填满真手机 */
+        height: 100vh !important; /* 高度填满真手机 */
+        border-radius: 0 !important; /* 去掉假圆角 */
+        box-shadow: none !important; /* 去掉假阴影 */
+    }
+}
+/* 真实手机全屏适配 */
+@media screen and (max-width: 600px) {
+    .phone-page {
+        width: 100vw !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+}
