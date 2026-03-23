@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Settings</title>
+    <link rel="stylesheet" href="settings-api.css">
+</head>
+<body>
+    <div class="phone-page">
+        <!-- 顶栏 -->
+        <header class="nav-bar">
+            <a href="../index.html" class="back-btn">〈 </a>
+            <h1 class="nav-title">API 设置</h1>
+            <div class="placeholder"></div>
+        </header>
+
+        <main class="settings-list">
+            <!-- 基础配置组 -->
+            <div class="settings-group">
+                <div class="setting-item">
+                    <label>服务商</label>
+                    <select id="provider">
+                        <option value="openai">OpenAI</option>
+                        <option value="anthropic">Anthropic</option>
+                        <option value="custom">自定义</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>API 地址</label>
+                    <input type="text" id="apiEndpoint" placeholder="https://api.openai.com/v1">
+                </div>
+                <div class="setting-item">
+                    <label>密钥 (Key)</label>
+                    <input type="password" id="apiKey" placeholder="sk-...">
+                </div>
+            </div>
+
+            <!-- 模型获取组 -->
+            <div class="settings-group">
+                <div class="setting-item">
+                    <label>模型列表</label>
+                    <button class="fetch-btn" id="fetchModels">拉取</button>
+                </div>
+                <div class="setting-item">
+                    <label>选择模型</label>
+                    <select id="modelSelect">
+                        <option value="">请先拉取列表</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 性能参数组 -->
+            <div class="settings-group">
+                <div class="setting-item">
+                    <div class="text-group">
+                        <span class="label">流式输出</span>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="streamToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item vertical">
+                    <div class="horizontal-between">
+                        <div class="text-group">
+                            <span class="label">快速回复</span>
+                            <span class="sub-label">开启后跳过思维链思考，直接输出回复</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="fastReply">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="setting-item vertical">
+                    <div class="text-group">
+                        <div class="horizontal-between">
+                            <span class="label">回复随机性 (Temperature)</span>
+                            <span id="tempValue" class="value-display">1.0</span>
+                        </div>
+                        <span class="sub-label">数值越大越随机，数值越小越严谨</span>
+                    </div>
+                    <input type="range" id="tempRange" min="0" max="2" step="0.1" value="1.0">
+                </div>
+            </div>
+
+            <button class="main-save-btn" id="saveBtn">保存配置</button>
+
+            <!-- 预设管理组 -->
+            <div class="group-title">API 预设管理</div>
+            <div class="settings-group">
+                <div class="setting-item">
+                    <select id="presetSelect">
+                        <option value="default">默认预设</option>
+                    </select>
+                    <button class="apply-btn">应用</button>
+                </div>
+                <div class="preset-actions">
+                    <button class="action-btn">另存为</button>
+                    <button class="action-btn">管理</button>
+                    <button class="action-btn">导入</button>
+                    <button class="action-btn">导出</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="settings-api.js"></script>
+</body>
+</html>

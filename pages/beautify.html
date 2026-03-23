@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统美化</title>
+    <link rel="stylesheet" href="beautify.css">
+</head>
+<body>
+    <div class="phone-page">
+        <!-- 顶栏 -->
+        <header class="nav-bar">
+            <a href="../index.html" class="back-btn">〈 </a>
+            <h1 class="nav-title">美化设置</h1>
+            <div class="placeholder"></div>
+        </header>
+
+        <main class="settings-list">
+            
+            <!-- 1. 应用图标自定义 -->
+            <div class="accordion-group">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>应用图标自定义</span>
+                    <span class="chevron">›</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-inner" id="iconSettingsList">
+                        <!-- JS 动态生成 App 列表 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 应用名称自定义 -->
+            <div class="accordion-group">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>应用名称自定义</span>
+                    <span class="chevron">›</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-inner" id="nameSettingsList">
+                        <!-- JS 动态生成 App 名称列表 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 主屏幕预设方案 -->
+            <div class="accordion-group">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>主屏幕预设方案</span>
+                    <span class="chevron">›</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-inner">
+                        <p class="helper-text">将当前主屏幕的「所有小组件+壁纸+应用图标」保存为方案，可导出分享或导入他人方案。</p>
+                        
+                        <div class="setting-row preset-controls">
+                            <select id="themePresetSelect">
+                                <option value="default">默认系统方案</option>
+                            </select>
+                            <button class="text-btn">应用</button>
+                            <button class="text-btn">管理</button>
+                        </div>
+                        
+                        <div class="action-grid">
+                            <button class="grid-btn" onclick="exportTheme()">导出方案</button>
+                            <button class="grid-btn" onclick="document.getElementById('importTheme').click()">导入方案</button>
+                            <input type="file" id="importTheme" hidden accept=".json" onchange="importTheme(event)">
+                            <button class="grid-btn danger" onclick="resetAllCustomize()">恢复默认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 字体设置 -->
+            <div class="accordion-group">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>字体设置</span>
+                    <span class="chevron">›</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-inner">
+                        <div class="setting-row vertical">
+                            <div class="horizontal-between">
+                                <span class="label">全局字体大小</span>
+                                <span class="value-display" id="fontSizeValue">14px</span>
+                            </div>
+                            <input type="range" id="fontSizeSlider" min="10" max="24" value="14">
+                        </div>
+                        
+                        <div class="setting-row vertical">
+                            <span class="label">字体文件 URL</span>
+                            <div class="input-with-btn">
+                                <input type="text" id="fontUrlInput" placeholder="https://...">
+                                <button class="text-btn" onclick="document.getElementById('fontUpload').click()">本地上传</button>
+                                <input type="file" id="fontUpload" hidden accept=".woff2,.woff,.ttf,.otf,.eot,.svg,.ttc" onchange="handleFontUpload(event)">
+                            </div>
+                            <p class="helper-text">支持 woff2, ttf, otf 等。限制 5MB。设置后将应用到全局。</p>
+                        </div>
+                        <button class="full-btn" onclick="applyFont()">直接应用字体</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 全局CSS美化 -->
+            <div class="accordion-group">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>全局 CSS 美化</span>
+                    <span class="chevron">›</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-inner">
+                        <div class="css-toolbar">
+                            <span class="label">自定义代码</span>
+                            <div class="css-actions">
+                                <button class="text-btn" onclick="applyCustomCSS()">应用</button>
+                                <button class="text-btn danger" onclick="clearCustomCSS()">重置</button>
+                            </div>
+                        </div>
+                        <textarea id="customCssInput" placeholder="在此输入 CSS 代码...
+例如：
+.phone-screen { border-radius: 0 !important; }"></textarea>
+
+                        <div class="group-title">拓展美化代码库</div>
+                        <div class="css-snippet-card">
+                            <div class="snippet-header">
+                                <span>深色毛玻璃大卡片</span>
+                                <button class="copy-btn" onclick="copySnippet(this)">复制</button>
+                            </div>
+                            <pre><code>.main-card { background: rgba(0,0,0,0.6); color: #fff; }</code></pre>
+                        </div>
+                        <div class="css-snippet-card">
+                            <div class="snippet-header">
+                                <span>隐藏 Dock 背景色</span>
+                                <button class="copy-btn" onclick="copySnippet(this)">复制</button>
+                            </div>
+                            <pre><code>.dock-blur { background: transparent; backdrop-filter: none; }</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. 提示音设置 -->
+            <div class="accordion-group">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>提示音设置</span>
+                    <span class="chevron">›</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="content-inner">
+                        <div class="setting-row">
+                            <span class="label">收到消息音</span>
+                            <div class="right-controls">
+                                <select id="soundSelect">
+                                    <option value="default">默认提示音 (iOS)</option>
+                                    <option value="bubble">水滴声</option>
+                                    <option value="custom">自定义上传...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <script src="beautify.js"></script>
+</body>
+</html>
