@@ -129,3 +129,12 @@ body { background: #000; display: flex; justify-content: center; align-items: ce
         box-shadow: none !important; /* 去掉假阴影 */
     }
 }
+/* 真实手机全屏适配 */
+@media screen and (max-width: 600px) {
+    .phone-page {
+        width: 100vw !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+}
