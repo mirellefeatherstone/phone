@@ -166,3 +166,15 @@ body {
     justify-content: space-evenly;
     align-items: center;
 }
+/* --- 真实手机设备的完美全屏适配 --- */
+@media screen and (max-width: 600px) {
+    body {
+        background: #fff; /* 去掉电脑上的黑色背景 */
+    }
+    .phone-screen {
+        width: 100vw !important; /* 宽度填满真手机 */
+        height: 100vh !important; /* 高度填满真手机 */
+        border-radius: 0 !important; /* 去掉假圆角 */
+        box-shadow: none !important; /* 去掉假阴影 */
+    }
+}
